@@ -1,5 +1,5 @@
+import { Box, Divider, HStack, Skeleton } from 'native-base';
 import React from 'react';
-import {View, HStack, Divider, Box, Skeleton} from 'native-base';
 
 const SkeletonPage = () => {
   return (

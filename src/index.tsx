@@ -1,29 +1,15 @@
-import React, {useState, useRef, useMemo, useEffect} from 'react';
-import {ActivityIndicator} from 'react-native';
 import {
-  Text,
-  Box,
-  VStack,
-  Heading,
-  FlatList,
-  Avatar,
-  HStack,
-  Spacer,
-  Center,
-  Fab,
-  Icon,
-  Pressable,
-  Actionsheet,
-  useToast,
-  AlertDialog,
-  Button,
+  Actionsheet, AlertDialog, Avatar, Box, Button, Center,
+  Fab, FlatList, Heading, HStack, Icon,
+  Pressable, Spacer, Text, useToast, VStack
 } from 'native-base';
+import React, { useMemo, useRef, useState } from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {ContactApi, Contact, FormProps} from './redux/store';
-import {DialogAlert} from './components/DialogAlert';
-import {getRandomColor} from './utils';
+import { DialogAlert } from './components/DialogAlert';
 import SkeletonPage from './components/Skeleton';
+import { Contact, ContactApi } from './redux/store';
+import { getRandomColor } from './utils';
 
 const HomePage = ({navigation}: any) => {
   const toast = useToast();
