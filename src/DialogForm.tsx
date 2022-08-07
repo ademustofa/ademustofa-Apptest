@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   Input,
   View,
@@ -7,11 +7,13 @@ import {
   TextArea,
   Button,
   useToast,
+  Icon,
 } from 'native-base';
 import {StyleSheet} from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
 import {DialogAlert} from './components/DialogAlert';
 import {FormProps, ContactApi} from './redux/store';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const DialogForm = ({navigation, route}: any) => {
   const {type, data: dataDetailContact} = route.params;
@@ -23,6 +25,10 @@ const DialogForm = ({navigation, route}: any) => {
     ContactApi.useAddContactMutation();
   const [updateContact, {isLoading: loadingUpdate, isError: isErrorupdate}] =
     ContactApi.useUpdateContactMutation();
+
+  const [focusFirstName, setFocusFirstName] = useState<boolean>(false);
+  const [focusLastName, setFocusLastName] = useState<boolean>(false);
+  const [focusAge, setFocusAge] = useState<boolean>(false);
 
   const {
     control,
@@ -111,7 +117,19 @@ const DialogForm = ({navigation, route}: any) => {
             name="firstName"
             render={({field: {onChange, onBlur, value}}) => (
               <Input
-                onBlur={onBlur}
+                InputLeftElement={
+                  <Icon
+                    as={<MaterialCommunityIcons name="account" />}
+                    size={5}
+                    ml="2"
+                   color={focusFirstName ? 'primary.600' : 'muted.500'}
+                  />
+                }
+                onFocus={() => setFocusFirstName(true)}
+                onBlur={() => {
+                  onBlur();
+                  setFocusFirstName(false);
+                }}
                 onChangeText={onChange}
                 value={value}
                 size="lg"
@@ -119,10 +137,7 @@ const DialogForm = ({navigation, route}: any) => {
                   base: '100%',
                 }}
                 bgColor="#fff"
-                // _focus={{
-                //   borderColor: '#2196F3',
-                //   color: '#2196F3',
-                // }}
+                borderColor="muted.500"
                 borderWidth={1.5}
                 placeholder="First Name"
               />
@@ -144,7 +159,19 @@ const DialogForm = ({navigation, route}: any) => {
             name="lastName"
             render={({field: {onChange, onBlur, value}}) => (
               <Input
-                onBlur={onBlur}
+                InputLeftElement={
+                  <Icon
+                    as={<MaterialCommunityIcons name="account" />}
+                    size={5}
+                    ml="2"
+                   color={focusLastName ? 'primary.600' : 'muted.500'}
+                  />
+                }
+                onFocus={() => setFocusLastName(true)}
+                onBlur={() => {
+                  onBlur();
+                  setFocusLastName(false);
+                }}
                 onChangeText={onChange}
                 value={value}
                 size="lg"
@@ -152,6 +179,7 @@ const DialogForm = ({navigation, route}: any) => {
                   base: '100%',
                 }}
                 bgColor="#fff"
+                borderColor="muted.500"
                 borderWidth={1.5}
                 placeholder="Last Name"
               />
@@ -172,7 +200,19 @@ const DialogForm = ({navigation, route}: any) => {
             name="age"
             render={({field: {onChange, onBlur, value}}) => (
               <Input
-                onBlur={onBlur}
+                InputLeftElement={
+                  <Icon
+                    as={<MaterialCommunityIcons name="card-account-details" />}
+                    size={5}
+                    ml="2"
+                   color={focusAge ? 'primary.600' : 'muted.500'}
+                  />
+                }
+                onFocus={() => setFocusAge(true)}
+                onBlur={() => {
+                  onBlur();
+                  setFocusAge(false);
+                }}
                 onChangeText={onChange}
                 value={value}
                 keyboardType="numeric"
@@ -181,6 +221,7 @@ const DialogForm = ({navigation, route}: any) => {
                   base: '100%',
                 }}
                 borderWidth={1.5}
+                borderColor="muted.500"
                 bgColor="#fff"
                 placeholder="Age"
               />
@@ -197,10 +238,12 @@ const DialogForm = ({navigation, route}: any) => {
           name="photo"
           render={({field: {onChange, onBlur, value}}) => (
             <TextArea
+              mt={4}
               bgColor="#fff"
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
+              borderColor="muted.500"
               h={20}
               placeholder="Foto Link"
             />

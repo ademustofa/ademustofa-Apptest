@@ -22,15 +22,8 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {ContactApi, Contact, FormProps} from './redux/store';
 import {DialogAlert} from './components/DialogAlert';
-
-function getRandomColor() {
-  var letters = '0123456789ABCDEF';
-  var color = '#';
-  for (var i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
-}
+import {getRandomColor} from './utils';
+import SkeletonPage from './components/Skeleton';
 
 const HomePage = ({navigation}: any) => {
   const toast = useToast();
@@ -180,10 +173,6 @@ const HomePage = ({navigation}: any) => {
         </AlertDialog.Content>
       </AlertDialog>
 
-      <Heading fontSize="xl" p="4" pb="3">
-        Contact
-      </Heading>
-
       <Actionsheet isOpen={openContact} onClose={() => setOpenContact(false)}>
         <Actionsheet.Content>
           <Center w="100%" py={10}>
@@ -214,7 +203,7 @@ const HomePage = ({navigation}: any) => {
                 name="account-edit"
               />
             }>
-            Update
+            Update Contact
           </Actionsheet.Item>
           <Actionsheet.Item
             onPress={() => {
@@ -230,17 +219,21 @@ const HomePage = ({navigation}: any) => {
                 name="delete"
               />
             }>
-            Delete
+            Delete Contact
           </Actionsheet.Item>
         </Actionsheet.Content>
       </Actionsheet>
 
-      {isLoading ? <ActivityIndicator /> : RenderContact}
+      <Heading fontSize="xl" p="4" pb="3">
+        Contact
+      </Heading>
+
+      {/* Render Data List */}
+      {/* <SkeletonPage /> */}
+      {isLoading ? <SkeletonPage /> : RenderContact}
 
       <Fab
         renderInPortal={false}
-        // bottom={20}
-        // colorScheme="blue.500"
         onPress={() =>
           navigation.navigate('FormContact', {type: 'add', data: null})
         }

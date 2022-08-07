@@ -9,7 +9,7 @@ export const DialogAlert = ({
   message: string;
 }) => {
   return (
-    <Alert mb="3" w="100%" status={type}>
+    <Alert style={{zIndex: 9999}} mb="3" w="100%" status={type}>
       <VStack space={2} flexShrink={1} w="100%">
         <HStack flexShrink={1} space={2} justifyContent="space-between">
           <HStack space={2} flexShrink={1}>
